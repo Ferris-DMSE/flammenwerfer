@@ -8,8 +8,26 @@ using System.Xml;
 
 namespace Flammenwerfer
 {
-    class Query_Search
+    public class Query_Search
     {
+        #region Properties and fields
+        private bool usingGUI = false;
+        private List<string> studentsFoundInQuery;
+        public List<string> StudentsFoundInQuery { get { return studentsFoundInQuery; } }
+        #endregion
+        /// <summary>
+        /// Constructor for using GUI
+        /// </summary>
+        /// <param name="usingGUI"></param>
+        public Query_Search(bool usingGUI)
+        {
+            this.usingGUI = usingGUI;
+        }
+        /// <summary>
+        /// Constructor for legacy code.
+        /// </summary>
+        public Query_Search() { }
+
         public void Search(string sSearchParamater, string type)
         {
             List<string> lFoundStudent = new List<string>();//this array will be used to send the found information to the next class
@@ -49,6 +67,7 @@ namespace Flammenwerfer
 
             foreach (XmlNode Node in XNList)
             {
+
                 sArchiveSearch = Node[SearchNode].InnerText.ToLower();
                 if (sArchiveSearch == sSearchParamater)//if the searched name equal and achieved name then sFoundStudent is filled with the the information from the archieve
                 {
@@ -79,17 +98,34 @@ namespace Flammenwerfer
             if (bStudentFound == true)
             {
                 Output Displayer = new Output();
-                Displayer.InfoDisplay(lFoundStudent);
-                CommandInput input = new CommandInput();
-                input.InputReader();
+                if (usingGUI)
+                {
+                    studentsFoundInQuery = lFoundStudent;
+                }
+
+                else
+                {
+                    Displayer.InfoDisplay(lFoundStudent);
+                    CommandInput input = new CommandInput();
+                    input.InputReader();
+                }
+
+
+                
             }
             else
             {
-                Output Display = new Output();
-                Display.DumbInfoDisplay("search failed");
-                Console.ReadKey();
-                CommandInput input = new CommandInput();
-                input.InputReader();
+                if (usingGUI)
+                    return;
+                else
+                {
+                    Output Display = new Output();
+                    Display.DumbInfoDisplay("search failed");
+                    Console.ReadKey();
+                    CommandInput input = new CommandInput();
+                    input.InputReader();
+                }
+                
             }
         }
     }
