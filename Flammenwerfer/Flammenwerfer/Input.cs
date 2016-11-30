@@ -60,7 +60,6 @@ namespace Flammenwerfer
         private void ResetWrongValue()
         { //Action flagged for when command entered does not match given types
             display.DumbInfoDisplay("Invalid entry \n Press any key to continue... \n");
-            Console.ReadKey();
             InputReader();
         }
         /*End action command comparison test*/
@@ -81,8 +80,8 @@ namespace Flammenwerfer
         /*Start of action command checking parser*/
         private void CommandParser()
         {/*Regular Expressions testing of inputted action command*/
-            MatchCollection mCommandGet = Regex.Matches(sSeperatedCMD[0], "(?i)g|(?i)f|(?i)r", RegexOptions.Singleline);
-            MatchCollection mCommandSet = Regex.Matches(sSeperatedCMD[0], "(?i)s|(?i)cr|(?i)add", RegexOptions.Singleline);
+            MatchCollection mCommandGet = Regex.Matches(sSeperatedCMD[0], "(?i)^g", RegexOptions.Singleline);
+            MatchCollection mCommandSet = Regex.Matches(sSeperatedCMD[0], "(?i)^s", RegexOptions.Singleline);
             CommandMatchTest(mCommandGet, mCommandSet);
         }
 
@@ -135,7 +134,12 @@ namespace Flammenwerfer
         /*End of Query command passthrough parsing*/
         #endregion
     }
+
+    class XMLPATH
+    {
+        public string Path = "../../UserData.xml";
+    }
 }
 
-    #endregion
+#endregion
 

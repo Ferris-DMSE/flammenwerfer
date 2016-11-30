@@ -36,12 +36,15 @@ namespace Flammenwerfer
             StudentFNNode(xDoc, xStudent);
             StudentLNNode(xDoc, xStudent);
             XmlNode xCourses = xDoc.CreateElement("Courses");
-            XmlNode xCourse = xDoc.CreateElement("Course");
+
             for (int iCurrentCourse = 0; iCurrentCourse < iCourseCounter; iCurrentCourse++)
             {
-                int iReadableCourseNumber = iCurrentCourse++;
-                string sDumbDisplay = "Course Number " + iReadableCourseNumber + ": \n";
-                cDisplayer.DumbInfoDisplay(sDumbDisplay);
+                XmlNode xCourse = xDoc.CreateElement("Course");
+                //displayer of course number
+                int iReadableCourseNumber = iCurrentCourse + 1;
+                string sDumbDisplay = "Course Number " + iReadableCourseNumber + ": \n"; //creates string to show divider for course number, in readable number formats
+                cDisplayer.DumbInfoDisplay(sDumbDisplay); //displays the string created above
+                //course node filler
                 UIDNode(xDoc, xStudent);
                 CourseIDNode(xDoc, xStudent);
                 CourseNumberNode(xDoc, xStudent);
@@ -51,10 +54,10 @@ namespace Flammenwerfer
                 SemesterNode(xDoc, xStudent);
                 CourseTypeNode(xDoc, xStudent);
                 CourseGradeNode(xDoc, xStudent);
+                xDoc.DocumentElement.AppendChild(xCourse);
             }
             //End Node Filler Writer
             xDoc.DocumentElement.AppendChild(xCourses);
-            xDoc.DocumentElement.AppendChild(xCourse);
             xDoc.DocumentElement.AppendChild(xStudent);
             xDoc.Save(sPath);
             Exit();
