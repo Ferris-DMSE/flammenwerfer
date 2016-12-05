@@ -77,10 +77,19 @@ namespace FlammenwerferWinForms
                 tbDisplay.Text = output.InfoDisplay(query.StudentsFoundInQuery, true);
 
 
+                #region ID Logging
+                int i = 0;
                 foreach (string sStudentInfo in query.StudentsFoundInQuery)
                 {
-                    Log.LogThis("User Accessed Student Info: " + sStudentInfo, eloglevel.info);
+                    i++;
+                    if (i == 2)
+                    {
+                        Log.LogThis("User Accessed Student Info: " + sStudentInfo, eloglevel.info);
+                    }
                 }
+                #endregion
+
+
                 lblCoreComp.Text = "Core Completion: " + output.CourseTypes.CoreCompleted;
                 lblElectiveComp.Text = "Elective Completion: " + output.CourseTypes.ElectivesCompleted;
                 lblGenEdComp.Text = "GenEd Completion: " + output.CourseTypes.GenEdCompleted;
