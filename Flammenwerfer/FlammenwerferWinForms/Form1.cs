@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Flammenwerfer;
+using LogThis;
 
 namespace FlammenwerferWinForms
 {
@@ -16,6 +17,9 @@ namespace FlammenwerferWinForms
         public Form1()
         {
             InitializeComponent();
+            Log.UseSensibleDefaults();
+            Log.LogHeader(Log.LogName + ": Starting...", elogheaderlevel.Level_1);
+            Log.LogThis("TODO: Redact Student Info other than Name and ID", eloglevel.info);
         }
 
         private void rbFirstName_CheckedChanged(object sender, EventArgs e)
@@ -66,10 +70,17 @@ namespace FlammenwerferWinForms
         {
             Query_Search query = new Query_Search(true);
             query.Search(tbQuery.Text.ToLower(), queryType);
+            Log.LogThis("User Searched: " + tbQuery.Text, eloglevel.info);
             if (query.StudentsFoundInQuery != null)
             {
                 Output output = new Output(true);
                 tbDisplay.Text = output.InfoDisplay(query.StudentsFoundInQuery, true);
+
+
+                foreach (string sStudentInfo in query.StudentsFoundInQuery)
+                {
+                    Log.LogThis("User Accessed Student Info: " + sStudentInfo, eloglevel.info);
+                }
                 lblCoreComp.Text = "Core Completion: " + output.CourseTypes.CoreCompleted;
                 lblElectiveComp.Text = "Elective Completion: " + output.CourseTypes.ElectivesCompleted;
                 lblGenEdComp.Text = "GenEd Completion: " + output.CourseTypes.GenEdCompleted;
