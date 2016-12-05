@@ -19,7 +19,6 @@ namespace FlammenwerferWinForms
             InitializeComponent();
             Log.UseSensibleDefaults();
             Log.LogHeader(Log.LogName + ": Starting...", elogheaderlevel.Level_1);
-            Log.LogThis("TODO: Redact Student Info other than Name and ID", eloglevel.info);
         }
 
         private void rbFirstName_CheckedChanged(object sender, EventArgs e)
@@ -82,7 +81,7 @@ namespace FlammenwerferWinForms
                 foreach (string sStudentInfo in query.StudentsFoundInQuery)
                 {
                     i++;
-                    if (i == 2)
+                    if (i >= 2 && i <= 4)
                     {
                         Log.LogThis("User Accessed Student Info: " + sStudentInfo, eloglevel.info);
                     }
