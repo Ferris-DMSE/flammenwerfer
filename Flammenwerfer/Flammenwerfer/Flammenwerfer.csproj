@@ -58,6 +58,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LogThis_readme.txt" />
     <Content Include="UserData.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
