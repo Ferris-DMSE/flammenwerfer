@@ -41,7 +41,7 @@
         <Button x:Name="button" Content="Button" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" Grid.Row="6"/>
         <Button x:Name="button1" Content="Button" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" Grid.Row="7"/>
         <Button x:Name="button2" Content="Button" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" Grid.Row="8"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="16"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="20"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text=" Course Completion: " VerticalAlignment="Stretch" Grid.Row="9"/>
         <TextBlock x:Name="textBlock3" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="____________________" VerticalAlignment="Stretch" Grid.Row="9"/>
         <TextBlock x:Name="CoreBlock" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="Core Class Completion: " VerticalAlignment="Stretch" Grid.Row="10"/>
