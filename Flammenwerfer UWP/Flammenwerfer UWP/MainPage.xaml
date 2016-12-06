@@ -30,28 +30,26 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Stretch" Margin="4" TextWrapping="Wrap" Text="Search Paramater:" VerticalAlignment="Stretch"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Stretch" Margin="4" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" Grid.Row="1" Grid.RowSpan="2"/>
-        <RadioButton x:Name="radioButton" Content="RadioButton" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" RenderTransformOrigin="0.452,0.536"  Grid.Row="3"/>
-        <RadioButton x:Name="radioButton_Copy" Content="RadioButton" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" RenderTransformOrigin="0.452,0.536" Grid.Row="4"/>
-        <RadioButton x:Name="radioButton_Copy1" Content="RadioButton" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" RenderTransformOrigin="0.452,0.536" Grid.Row="5"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" Grid.Row="6"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" Grid.Row="7"/>
-        <Button x:Name="button2" Content="Button" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" Grid.Row="8"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="20"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text=" Course Completion: " VerticalAlignment="Stretch" Grid.Row="9"/>
-        <TextBlock x:Name="textBlock3" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="____________________" VerticalAlignment="Stretch" Grid.Row="9"/>
-        <TextBlock x:Name="CoreBlock" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="Core Class Completion: " VerticalAlignment="Stretch" Grid.Row="10"/>
-        <TextBlock x:Name="CoreValue" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="  " VerticalAlignment="Stretch" Grid.Row="11"/>
-        <TextBlock x:Name="GenEdBlock" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="GenEd Class Completion: " VerticalAlignment="Stretch" Grid.Row="12"/>
-        <TextBlock x:Name="GenEdValue" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="GenEd Class Completion: " VerticalAlignment="Stretch" Grid.Row="13"/>
-        <TextBlock x:Name="ElectiveBlock" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="Elective Class Completion: " VerticalAlignment="Stretch" Grid.Row="14"/>
-        <TextBlock x:Name="ElectiveValue" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text=" " VerticalAlignment="Stretch" Grid.Row="15"/>
-        <TextBlock x:Name="OverallBlock" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="Overall Class Completion: " VerticalAlignment="Stretch" Grid.Row="16"/>
-        <TextBlock x:Name="OverallValue" HorizontalAlignment="Stretch" Margin="2,2.024,0,0" TextWrapping="Wrap" Text="  " VerticalAlignment="Stretch" Grid.Row="17"/>
+        <RadioButton x:Name="sidRadioButton" Content="Student I.D." HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" RenderTransformOrigin="0.452,0.536"  Grid.Row="3" Checked="sidRadioButton_Checked"/>
+        <RadioButton x:Name="fnameRadioButton" Content="First Name" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" RenderTransformOrigin="0.452,0.536" Grid.Row="4" Checked="fnameRadioButton_Checked"/>
+        <RadioButton x:Name="lnameRadioButton" Content="Last Name" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" RenderTransformOrigin="0.452,0.536" Grid.Row="5" Checked="lnameRadioButton_Checked"/>
+        <Button x:Name="SearchBtn" Content="Search" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" Grid.Row="6" Click="SearchBtn_Click"/>
+        <Button x:Name="HelpBtn" Content="Help" HorizontalAlignment="Stretch" Margin="4" VerticalAlignment="Stretch" Grid.Row="7" Click="HelpBtn_Click"/>
+        <TextBlock x:Name="output" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="20"/>
+        <TextBlock x:Name="Unedited" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text=" Course Completion: " VerticalAlignment="Stretch" Grid.Row="8"/>
+        <TextBlock x:Name="unedited" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="____________________" VerticalAlignment="Stretch" Grid.Row="8"/>
+        <TextBlock x:Name="CoreBlock" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="Core Class Completion: " VerticalAlignment="Stretch" Grid.Row="9"/>
+        <TextBlock x:Name="CoreValue" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="  " VerticalAlignment="Stretch" Grid.Row="10"/>
+        <TextBlock x:Name="GenEdBlock" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="GenEd Class Completion: " VerticalAlignment="Stretch" Grid.Row="11"/>
+        <TextBlock x:Name="GenEdValue" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text=" " VerticalAlignment="Stretch" Grid.Row="12"/>
+        <TextBlock x:Name="ElectiveBlock" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="Elective Class Completion: " VerticalAlignment="Stretch" Grid.Row="13"/>
+        <TextBlock x:Name="ElectiveValue" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text=" " VerticalAlignment="Stretch" Grid.Row="14"/>
+        <TextBlock x:Name="OverallBlock" HorizontalAlignment="Stretch" Margin="2" TextWrapping="Wrap" Text="Overall Class Completion: " VerticalAlignment="Stretch" Grid.Row="15"/>
+        <TextBlock x:Name="OverallValue" HorizontalAlignment="Stretch" Margin="2,2.024,0,0" TextWrapping="Wrap" Text="  " VerticalAlignment="Stretch" Grid.Row="16"/>
 
     </Grid>
 </Page>
