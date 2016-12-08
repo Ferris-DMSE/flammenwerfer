@@ -28,7 +28,7 @@ namespace Flammenwerfer
             string sSearchedUID = "";
             bool bStudentFound = false;//will be set to true if student is found
             int iCourseCounter = 0;
-            var spath = "../../../UserData.xml";
+            var spath = "..\\..\\..\\UserData.xml";
             var file = await StorageFile.GetFileFromPathAsync(spath);
             using (var stream = await file.OpenStreamForReadAsync())
             {
