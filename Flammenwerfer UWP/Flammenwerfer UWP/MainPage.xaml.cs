@@ -70,18 +70,19 @@ namespace Flammenwerfer_UWP
         private void lnameRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             textBlock.Text = "Enter students last name";
+            QueryType = "lname";
         }
 
         private void sidRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             textBlock.Text = "Enter students I.D. #";
-
+            QueryType = "sid";
         }
 
         private void fnameRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             textBlock.Text = "Enter students first name";
-
+            QueryType = "fname";
         }
     }
 }
