@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Data.Xml.Dom;
+using System.Xml;
 using Windows.Storage;
+using System.Xml.Linq;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+using System.IO;
+using Windows.Storage.Streams;
 
 namespace Flammenwerfer
 {
@@ -17,18 +22,19 @@ namespace Flammenwerfer
         public void Search(string sSearchParamater, string type)
         {
             List<string> lFoundStudent = new List<string>();//this array will be used to send the found information to the next class
-            lFoundStudent.Add("");
+            lFoundStudent.Add(""); //used to 
             string sArchiveSearch = "";//used to hold FirstNames found in the xml file
             string sArchiveUID = "";
             string sSearchedUID = "";
             bool bStudentFound = false;//will be set to true if student is found
             int iCourseCounter = 0;
             string SearchNode = "";
-            XmlDocument xmlArchive = new XmlDocument();
-            var spath = ""; //NEEDS DATA TO FIX SFJSDLFKJWOTIGWESGKOSDJGO:IWJEGFTL:KSDJGFO:IEJGOIJDSGL:BVHJWEOIGFJEW:KFRJ(@#*$%&@()*%UO@#$IWERJFF@#$*(RU@O$IRFJL:@IDFJ@#*()7u5r)P@&%()@$*&%U(@*&$%)_@(#*$*)_@#(*$)_@#(&%(_*@#$&%T(_@*#U%$+)_@(#*$)@#(&*%_)(@#&*$%_()@#*&$-02897
-            xmlArchive.LoadXml(spath); //loads the precreated xml doc,takes the path string found in the XML_Creator class
-            XmlNodeList XNList = xmlArchive.SelectNodes("/Students/Student");
-            XmlNodeList XNListCourses = xmlArchive.SelectNodes("/Students/Student/Courses/Course");
+            XDocument xmlArchive = new XDocument();
+            var spath = @"C:/Users/domat/Source/Repos/flammenwerfer/Flammenwerfer UWP/ Flammenwerfer UWP/UserData.xml";
+            XNamespace xpath = spath;
+            //loads the precreated xml doc,takes the path string found in the XML_Creator class
+            var Student = xmlArchive.Descendants(xpath + "Student").ToList();
+            var Courses = xmlArchive.Descendants(xpath + "Course").ToList();
 
             switch (type)//here starts a check for each type of search(ID, First Name and Last Name)
             {
@@ -50,31 +56,30 @@ namespace Flammenwerfer
                     break;
             }
 
-            foreach (IXmlNode Node in XNList)
+            foreach (var Node in Student)
             {
-                var searchparam = "root/Students/Student/" + SearchNode;
-                sArchiveSearch = Node.SelectSingleNode(searchparam).InnerText.ToLower();
+                sArchiveSearch = Node.Attribute(SearchNode).Value.ToString();
                 if (sArchiveSearch == sSearchParamater)//if the searched name equal and achieved name then sFoundStudent is filled with the the information from the archieve
                 {
                     bStudentFound = true;
-                    lFoundStudent.Add(Node.SelectSingleNode("root/Students/Student/SID").InnerText);
-                    sSearchedUID = Node.SelectSingleNode("root/Students/Student/SID").InnerText;
-                    lFoundStudent.Add(Node.SelectSingleNode("root/Students/Student/FName").InnerText);
-                    lFoundStudent.Add(Node.SelectSingleNode("root/Students/Student/LName").InnerText);
-                    foreach (IXmlNode xNode in XNListCourses)
+                    sSearchedUID = Node.Attribute("SID").Value.ToString();
+                    lFoundStudent.Add(sSearchedUID);
+                    lFoundStudent.Add(Node.Attribute("FName").Value.ToString());
+                    lFoundStudent.Add(Node.Attribute("LName").Value.ToString());
+                    foreach (var xNode in Courses)
                     {
-                        sArchiveUID = xNode.SelectSingleNode("root/Students/Student/Courses/Course/UID").InnerText;
+                        sArchiveUID = xNode.Attribute("UID").Value.ToString();
                         if (sArchiveUID == sSearchedUID)
                         {
                             iCourseCounter++;
-                            lFoundStudent.Add(xNode.SelectSingleNode("root/Students/Student/Courses/Course/CourseID").InnerText);
-                            lFoundStudent.Add(xNode.SelectSingleNode("root/Students/Student/Courses/Course/CourseNumber").InnerText);
-                            lFoundStudent.Add(xNode.SelectSingleNode("root/Students/Student/Courses/Course/CourseName").InnerText);
-                            lFoundStudent.Add(xNode.SelectSingleNode("root/Students/Student/Courses/Course/Credits").InnerText);
-                            lFoundStudent.Add(xNode.SelectSingleNode("root/Students/Student/Courses/Course/Year").InnerText);
-                            lFoundStudent.Add(xNode.SelectSingleNode("root/Students/Student/Courses/Course/Semester").InnerText);
-                            lFoundStudent.Add(xNode.SelectSingleNode("root/Students/Student/Courses/Course/CourseType").InnerText);
-                            lFoundStudent.Add(xNode.SelectSingleNode("root/Students/Student/Courses/Course/CourseGrade").InnerText);
+                            lFoundStudent.Add(xNode.Attribute("CourseID").Value.ToString());
+                            lFoundStudent.Add(xNode.Attribute("CourseNumber").Value.ToString());
+                            lFoundStudent.Add(xNode.Attribute("CourseName").Value.ToString());
+                            lFoundStudent.Add(xNode.Attribute("Credits").Value.ToString());
+                            lFoundStudent.Add(xNode.Attribute("Year").Value.ToString());
+                            lFoundStudent.Add(xNode.Attribute("Semester").Value.ToString());
+                            lFoundStudent.Add(xNode.Attribute("CourseType").Value.ToString());
+                            lFoundStudent.Add(xNode.Attribute("CourseGrade").Value.ToString());
                         }
                         lFoundStudent[0] = Convert.ToString(iCourseCounter);
                     }
