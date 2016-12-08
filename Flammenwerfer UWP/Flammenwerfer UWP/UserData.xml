@@ -1,110 +1,147 @@
-<Students>
-  <Student>
-    <SID>3-61-206</SID>
-    <FName>John</FName>
-    <LName>Smith</LName>
-    <Courses>
-      <Course>
-        <UID>3-61-206</UID>
-        <CourseID>9380</CourseID>
-        <CourseNumber>MA-230</CourseNumber>
-        <CourseName>Calculus 2</CourseName>
-        <Credits>5</Credits>
-        <Year>2016</Year>
-        <Semester>spring</Semester>
-        <CourseType>general education</CourseType>
-        <CourseGrade>C-</CourseGrade>
-      </Course>
-      <Course>
-        <UID>3-61-206</UID>
-        <CourseID>7382</CourseID>
-        <CourseNumber>EN-315</CourseNumber>
-        <CourseName>Advanced English Composition</CourseName>
-        <Credits>3</Credits>
-        <Year>2015</Year>
-        <Semester>Fall</Semester>
-        <CourseType>General Education</CourseType>
-        <CourseGrade>D+</CourseGrade>
-      </Course>
-    </Courses>
-  </Student>
-  <Student>
-    <SID>1-22-424</SID>
-    <FName>Jake</FName>
-    <LName>Johnson</LName>
-    <Courses>
-      <Course>
-        <UID>1-22-424</UID>
-        <CourseID>9975</CourseID>
-        <CourseNumber>ALC-120</CourseNumber>
-        <CourseName>Basic Alchemy</CourseName>
-        <Credits>8</Credits>
-        <Year>2016</Year>
-        <Semester>Fall</Semester>
-        <CourseType>Core</CourseType>
-        <CourseGrade>B-</CourseGrade>
-      </Course>
-      <Course>
-        <UID>1-22-424</UID>
-        <CourseID>9266</CourseID>
-        <CourseNumber>EN-315</CourseNumber>
-        <CourseName>Advanced English Composition</CourseName>
-        <Credits>3</Credits>
-        <Year>2015</Year>
-        <Semester>Fall</Semester>
-        <CourseType>General Education</CourseType>
-        <CourseGrade>D+</CourseGrade>
-      </Course>
-    </Courses>
-  </Student>
-  <Student>
-    <SID>1-61-397</SID>
-    <FName>Samantha</FName>
-    <LName>Robertson</LName>
-    <Courses>
-      <Course>
-        <UID>1-61-397</UID>
-        <CourseID>3139</CourseID>
-        <CourseNumber>ALC-120</CourseNumber>
-        <CourseName>Basic Alchemy</CourseName>
-        <Credits>8</Credits>
-        <Year>2016</Year>
-        <Semester>Fall</Semester>
-        <CourseType>Core</CourseType>
-        <CourseGrade>B-</CourseGrade>
-      </Course>
-      <Course>
-        <UID>1-61-397</UID>
-        <CourseID>7644</CourseID>
-        <CourseNumber>DBM-315</CourseNumber>
-        <CourseName>Advanced Blood Magic</CourseName>
-        <Credits>6</Credits>
-        <Year>2016</Year>
-        <Semester>Fall</Semester>
-        <CourseType>General Education</CourseType>
-        <CourseGrade>A+</CourseGrade>
-      </Course>
-    </Courses>
-  </Student>
-  <Courses />
-  <Course />
-  <Student>
-    <SID>123</SID>
-    <FName>Rick</FName>
-    <LName>Baker</LName>
-    <Courses>
-      <Course>
-        <UID>123</UID>
-        <CourseID>0</CourseID>
-        <CourseNumber>ALC-120</CourseNumber>
-        <CourseName>Basic Alchemy</CourseName>
-        <Credits>3</Credits>
-        <Year>2016</Year>
-        <Semester>Fall</Semester>
-        <CourseType>Core</CourseType>
-        <CourseGrade>A</CourseGrade>
-      
+<Root>
+  <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="Root">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element name="Students">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Student" maxOccurs="unbounded" minOccurs="0">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="SID"/>
+                      <xs:element type="xs:string" name="FName"/>
+                      <xs:element type="xs:string" name="LName"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Courses">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Course" maxOccurs="unbounded" minOccurs="0">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="UID"/>
+                      <xs:element type="xs:short" name="CourseID"/>
+                      <xs:element type="xs:string" name="CourseNumber"/>
+                      <xs:element type="xs:string" name="CourseName"/>
+                      <xs:element type="xs:byte" name="Credits"/>
+                      <xs:element type="xs:short" name="Year"/>
+                      <xs:element type="xs:string" name="Semester"/>
+                      <xs:element type="xs:string" name="CourseType"/>
+                      <xs:element type="xs:string" name="CourseGrade"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Students>
+    <Student>
+      <SID>3-61-206</SID>
+      <FName>John</FName>
+      <LName>Smith</LName>
+    </Student>
+    <Student>
+      <SID>1-22-424</SID>
+      <FName>Jake</FName>
+      <LName>Johnson</LName>
+    </Student>
+    <Student>
+      <SID>1-61-397</SID>
+      <FName>Samantha</FName>
+      <LName>Robertson</LName>
+    </Student>
+    <Student>
+      <SID>123</SID>
+      <FName>Rick</FName>
+      <LName>Baker</LName>
+    </Student>
+  </Students>
+  <Courses>
+    <Course>
+      <UID>3-61-206</UID>
+      <CourseID>9380</CourseID>
+      <CourseNumber>MA-230</CourseNumber>
+      <CourseName>Calculus 2</CourseName>
+      <Credits>5</Credits>
+      <Year>2016</Year>
+      <Semester>spring</Semester>
+      <CourseType>general education</CourseType>
+      <CourseGrade>C-</CourseGrade>
     </Course>
-    </Courses>
-  </Student>
-</Students>
+    <Course>
+      <UID>3-61-206</UID>
+      <CourseID>7382</CourseID>
+      <CourseNumber>EN-315</CourseNumber>
+      <CourseName>Advanced English Composition</CourseName>
+      <Credits>3</Credits>
+      <Year>2015</Year>
+      <Semester>Fall</Semester>
+      <CourseType>General Education</CourseType>
+      <CourseGrade>D+</CourseGrade>
+    </Course>
+    <Course>
+      <UID>123</UID>
+      <CourseID>3139</CourseID>
+      <CourseNumber>ALC-120</CourseNumber>
+      <CourseName>Basic Alchemy</CourseName>
+      <Credits>3</Credits>
+      <Year>2016</Year>
+      <Semester>Fall</Semester>
+      <CourseType>Core</CourseType>
+      <CourseGrade>A</CourseGrade>
+    </Course>
+    <Course>
+      <UID>1-61-397</UID>
+      <CourseID>3139</CourseID>
+      <CourseNumber>ALC-120</CourseNumber>
+      <CourseName>Basic Alchemy</CourseName>
+      <Credits>8</Credits>
+      <Year>2016</Year>
+      <Semester>Fall</Semester>
+      <CourseType>Core</CourseType>
+      <CourseGrade>B-</CourseGrade>
+    </Course>
+    <Course>
+      <UID>1-61-397</UID>
+      <CourseID>7644</CourseID>
+      <CourseNumber>DBM-315</CourseNumber>
+      <CourseName>Advanced Blood Magic</CourseName>
+      <Credits>6</Credits>
+      <Year>2016</Year>
+      <Semester>Fall</Semester>
+      <CourseType>General Education</CourseType>
+      <CourseGrade>A+</CourseGrade>
+    </Course>
+    <Course>
+      <UID>1-22-424</UID>
+      <CourseID>9975</CourseID>
+      <CourseNumber>ALC-120</CourseNumber>
+      <CourseName>Basic Alchemy</CourseName>
+      <Credits>8</Credits>
+      <Year>2016</Year>
+      <Semester>Fall</Semester>
+      <CourseType>Core</CourseType>
+      <CourseGrade>B-</CourseGrade>
+    </Course>
+    <Course>
+      <UID>1-22-424</UID>
+      <CourseID>9266</CourseID>
+      <CourseNumber>EN-315</CourseNumber>
+      <CourseName>Advanced English Composition</CourseName>
+      <Credits>3</Credits>
+      <Year>2015</Year>
+      <Semester>Fall</Semester>
+      <CourseType>General Education</CourseType>
+      <CourseGrade>D+</CourseGrade>
+    </Course>
+  </Courses>
+</Root>
