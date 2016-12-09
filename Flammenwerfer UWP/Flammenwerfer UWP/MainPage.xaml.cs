@@ -62,7 +62,6 @@ namespace Flammenwerfer_UWP
 
         private void HelpBtn_Click(object sender, RoutedEventArgs e)
         {
-            output.Text = "";
             output.Text = "To search for a student simply select your search type, then enter in the required information. The students basic information as well as the course information will be displayed, and the course completion information is displayed on the far right.";
         }
 
