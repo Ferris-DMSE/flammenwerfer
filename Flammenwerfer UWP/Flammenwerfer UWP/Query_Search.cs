@@ -64,6 +64,69 @@ namespace Flammenwerfer
                                                .Descendants(type)
                                                .Select(x => (string)x)
                                                .ToList();
+            List<string> UIDList = xmlArchive.Elements("Students")
+                                              .Elements("Student")
+                                              .Elements("Courses")
+                                              .Elements("Course")
+                                              .Descendants("UID")
+                                              .Select(x => (string)x)
+                                              .ToList();
+            List<string> CIDList = xmlArchive.Elements("Students")
+                                              .Elements("Student")
+                                              .Elements("Courses")
+                                              .Elements("Course")
+                                              .Descendants("CourseID")
+                                              .Select(x => (string)x)
+                                              .ToList();
+            List<string> CNumList = xmlArchive.Elements("Students")
+                                              .Elements("Student")
+                                              .Elements("Courses")
+                                              .Elements("Course")
+                                              .Descendants("CourseNumber")
+                                              .Select(x => (string)x)
+                                              .ToList();
+            List<string> CNameList = xmlArchive.Elements("Students")
+                                              .Elements("Student")
+                                              .Elements("Courses")
+                                              .Elements("Course")
+                                              .Descendants("CourseName")
+                                              .Select(x => (string)x)
+                                              .ToList();
+            List<string> CreditsList = xmlArchive.Elements("Students")
+                                              .Elements("Student")
+                                              .Elements("Courses")
+                                              .Elements("Course")
+                                              .Descendants("Credits")
+                                              .Select(x => (string)x)
+                                              .ToList();
+            List<string> YearList = xmlArchive.Elements("Students")
+                                              .Elements("Student")
+                                              .Elements("Courses")
+                                              .Elements("Course")
+                                              .Descendants("Year")
+                                              .Select(x => (string)x)
+                                              .ToList();
+            List<string> SemList = xmlArchive.Elements("Students")
+                                              .Elements("Student")
+                                              .Elements("Courses")
+                                              .Elements("Course")
+                                              .Descendants("Semester")
+                                              .Select(x => (string)x)
+                                              .ToList();
+            List<string> CTList = xmlArchive.Elements("Students")
+                                              .Elements("Student")
+                                              .Elements("Courses")
+                                              .Elements("Course")
+                                              .Descendants("CourseType")
+                                              .Select(x => (string)x)
+                                              .ToList();
+            List<string> CGList = xmlArchive.Elements("Students")
+                                              .Elements("Student")
+                                              .Elements("Courses")
+                                              .Elements("Course")
+                                              .Descendants("CourseGrade")
+                                              .Select(x => (string)x)
+                                              .ToList();
             foreach (var item in SearchList)
             {
                 var node = item.ToLower();
@@ -75,10 +138,27 @@ namespace Flammenwerfer
                     lFoundStudent.Add(SIDList[index]);
                     lFoundStudent.Add(FNameList[index]);
                     lFoundStudent.Add(LNameList[index]);
-                    break;
+                    int CourseIndex = 0;
+                    foreach (var cItem in UIDList)
+                    {
+                        if (cItem == sSearchedUID)
+                        {
+                            lFoundStudent.Add(CIDList[CourseIndex]);
+                            lFoundStudent.Add(CNumList[CourseIndex]);
+                            lFoundStudent.Add(CNameList[CourseIndex]);
+                            lFoundStudent.Add(CreditsList[CourseIndex]);
+                            lFoundStudent.Add(YearList[CourseIndex]);
+                            lFoundStudent.Add(SemList[CourseIndex]);
+                            lFoundStudent.Add(CTList[CourseIndex]);
+                            lFoundStudent.Add(CGList[CourseIndex]);
+                        }
+                        CourseIndex++;
+                    }
+                    //break;
                 }
                 index++;
             }
+
 
             //loads the precreated xml doc,takes the path string found in the XML_Creator class
             if (bStudentFound == true)
