@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Data.Xml.Dom;
-//using System.Xml;
+//using Windows.Data.Xml.Dom;
+using System.Xml.Linq;
+//using Windows.Data.Xml.Xsl;
+using System.Xml;
 using Windows.Storage;
 using System.IO;
 using Windows.Storage.Streams;
+using Flammenwerfer_UWP;
 
 namespace Flammenwerfer
 {
@@ -25,80 +28,63 @@ namespace Flammenwerfer
             lFoundStudent.Add(""); //used to be a placeholder for number of courses a student has on record
             string sSearchedStudent = "";
             int index = 0;
+            int studentOffset = 0;
             int caseOffset = 0;
             string sSearchedUID = ""; //store variable to searching UID variable
             bool bStudentFound = false;//will be set to true if student is found
             int iCourseCounter = 0;
             var rootpoint = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
             var spath = rootpoint + @"\UserData.xml";
-            var xmlString = File.ReadAllText(spath);
-            XmlDocument xmlArchive = new XmlDocument();
-            xmlArchive.LoadXml(xmlString);//loads the precreated xml doc,takes the path string found in the XML_Creator class
-            XmlNodeList XNList = xmlArchive.SelectNodes("/Students/Student");
-            XmlNodeList XNListCourses = xmlArchive.SelectNodes("/Students/Student/Courses/Course");
-            while (index < XNList.Count)
+            //string xmlString = "<Root><Students><Student><SID>3-61-206</SID><FName>John</FName><LName>Smith</LName></Student><Student><SID>1-22-424</SID><FName>Jake</FName><LName>Johnson</LName></Student><Student><SID>1-61-397</SID><FName>Samantha</FName><LName>Robertson</LName></Student><Student><SID>123</SID><FName>Rick</FName><LName>Baker</LName></Student></Students><Courses><Course><UID>3-61-206</UID><CourseID>9380</CourseID><CourseNumber>MA-230</CourseNumber><CourseName>Calculus 2</CourseName><Credits>5</Credits><Year>2016</Year><Semester>spring</Semester><CourseType>general education</CourseType><CourseGrade>C-</CourseGrade></Course><Course><UID>3-61-206</UID><CourseID>7382</CourseID><CourseNumber>EN-315</CourseNumber><CourseName>Advanced English Composition</CourseName><Credits>3</Credits><Year>2015</Year><Semester>Fall</Semester><CourseType>General Education</CourseType><CourseGrade>D+</CourseGrade></Course><Course><UID>123</UID><CourseID>3139</CourseID><CourseNumber>ALC-120</CourseNumber><CourseName>Basic Alchemy</CourseName><Credits>3</Credits><Year>2016</Year><Semester>Fall</Semester><CourseType>Core</CourseType><CourseGrade>A</CourseGrade></Course><Course><UID>1-61-397</UID><CourseID>3139</CourseID><CourseNumber>ALC-120</CourseNumber><CourseName>Basic Alchemy</CourseName><Credits>8</Credits><Year>2016</Year><Semester>Fall</Semester><CourseType>Core</CourseType><CourseGrade>B-</CourseGrade></Course><Course><UID>1-61-397</UID><CourseID>7644</CourseID><CourseNumber>DBM-315</CourseNumber><CourseName>Advanced Blood Magic</CourseName><Credits>6</Credits><Year>2016</Year><Semester>Fall</Semester><CourseType>General Education</CourseType><CourseGrade>A+</CourseGrade></Course><Course><UID>1-22-424</UID><CourseID>9975</CourseID><CourseNumber>ALC-120</CourseNumber><CourseName>Basic Alchemy</CourseName><Credits>8</Credits><Year>2016</Year><Semester>Fall</Semester><CourseType>Core</CourseType><CourseGrade>B-</CourseGrade></Course><Course><UID>1-22-424</UID><CourseID>9266</CourseID><CourseNumber>EN-315</CourseNumber><CourseName>Advanced English Composition</CourseName><Credits>3</Credits><Year>2015</Year><Semester>Fall</Semester><CourseType>General Education</CourseType><CourseGrade>D+</CourseGrade></Course></Courses></Root>";//File.ReadAllText(spath);
+            XDocument xmlArchive = XDocument.Load(spath);
+            //xmlArchive.LoadXml(xmlString);//loads the precreated xml doc,takes the path string found in the XML_Creator class
+            var XNList =
+                from node in xmlArchive.Nodes()
+                select node;
+            var nodes = from node in xmlArchive.DescendantNodes()
+                        select node;
+            var TypeElement = new XElement(type, sSearchParamater);
+            List<string> SIDList = xmlArchive.Elements("Students")
+                                                          .Elements("Student")
+                                                          .Descendants("SID")
+                                                          .Select(x => (string)x)
+                                                          .ToList();
+            List<string> FNameList = xmlArchive.Elements("Students")
+                                               .Elements("Student")
+                                               .Descendants("FName")
+                                               .Select(x => (string)x)
+                                               .ToList();
+            List<string> LNameList = xmlArchive.Elements("Students")
+                                               .Elements("Student")
+                                               .Descendants("LName")
+                                               .Select(x => (string)x)
+                                               .ToList();
+            List<string> SearchList = xmlArchive.Elements("Students")
+                                               .Elements("Student")
+                                               .Descendants(type)
+                                               .Select(x => (string)x)
+                                               .ToList();
+            foreach (var item in SearchList)
             {
-                switch (type)
+                var node = item.ToLower();
+                sSearchParamater = sSearchParamater.ToLower();
+                if (node == sSearchParamater)
                 {
-                    case "FName":
-                        sSearchedStudent = XNList[index].InnerText;
-                        caseOffset = 1;
-                        break;
-                    case "LName":
-                        sSearchedStudent = XNList[index].InnerText;
-                        caseOffset = 2;
-                        break;
-                    case "SID":
-                        sSearchedStudent = XNList[index].InnerText;
-                        caseOffset = 0;
-                        break;
-                }
-                if (sSearchedStudent == sSearchParamater)
+                    bStudentFound = true;
+                    sSearchedUID = SIDList[index];
+                    lFoundStudent.Add(SIDList[index]);
+                    lFoundStudent.Add(FNameList[index]);
+                    lFoundStudent.Add(LNameList[index]);
                     break;
-                index++;
-            }
-            lFoundStudent.Add(XNList[(index - caseOffset)].InnerText);
-            sSearchedUID = XNList[(index - caseOffset)].InnerText;
-            lFoundStudent.Add(XNList[(index - caseOffset + 1)].InnerText);
-            lFoundStudent.Add(XNList[(index - caseOffset + 2)].InnerText);
-            index = 0;
-            caseOffset = 0;
-            while (index < XNListCourses.Count)
-            {
-                if (XNListCourses[index].NodeName == "UID")
-                {
-                    if (XNListCourses[index].InnerText == sSearchedUID)
-                    {
-                        iCourseCounter++;
-                        var coursedataindex = index + 1;
-                        lFoundStudent.Add(XNListCourses[(coursedataindex)].InnerText);
-                        coursedataindex++;
-                        lFoundStudent.Add(XNListCourses[(coursedataindex)].InnerText);
-                        coursedataindex++;
-                        lFoundStudent.Add(XNListCourses[(coursedataindex)].InnerText);
-                        coursedataindex++;
-                        lFoundStudent.Add(XNListCourses[(coursedataindex)].InnerText);
-                        coursedataindex++;
-                        lFoundStudent.Add(XNListCourses[(coursedataindex)].InnerText);
-                        coursedataindex++;
-                        lFoundStudent.Add(XNListCourses[(coursedataindex)].InnerText);
-                        coursedataindex++;
-                        lFoundStudent.Add(XNListCourses[(coursedataindex)].InnerText);
-                        coursedataindex++;
-                        lFoundStudent.Add(XNListCourses[(coursedataindex)].InnerText);
-                        coursedataindex++;
-
-                    }
                 }
                 index++;
             }
-            lFoundStudent[0] = iCourseCounter.ToString();
+
             //loads the precreated xml doc,takes the path string found in the XML_Creator class
             if (bStudentFound == true)
             {
                 studentsFoundInQuery = lFoundStudent;
             }
         }
-
     }
 }
